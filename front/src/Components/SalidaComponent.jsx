@@ -1,11 +1,13 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import styled from 'styled-components'
-const EntradasComponent= () => {
+
+function SalidaComponent() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        fetch('http://localhost:8080/recibos', {
+        console.log(data);
+        fetch('http://localhost:8080/salida', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data),})
@@ -24,10 +26,25 @@ const EntradasComponent= () => {
                     {errors.fecha?.type === 'required' && <span>Este campo es requerido</span>}
                 </div>
                 <div>
-                    <label>Numero Recibo</label>
+                    <label>Tipo de Documento</label>
+                    <select {...register('documento', {required:true})}>
+                        <option value="">Seleccione un tipo de documento</option>
+                        <option value="1">Factura</option>
+                        <option value="2">Boleta</option>
+                    </select>
+                    {errors.documento?.type === 'required' && <span>Este campo es requerido</span>}
+                </div>
+                <div>
+                    <label>Numero Documento</label>
                     <input type="number" name="numero" {...register("numero", { required: true })} />
                     {errors.numero?.type === 'required' && <span>Este campo es requerido</span>}
                 </div>
+                <div>
+                    <label>Motivo</label>
+                    <input type="text" name="motivo" {...register("motivo", { required: true })} />
+                    {errors.numero?.type === 'required' && <span>Este campo es requerido</span>}
+                </div>
+                
                 <div>
                     <label>Monto</label>
                     <input type="number" name="monto" {...register("monto", { required: true })} />
@@ -38,5 +55,6 @@ const EntradasComponent= () => {
             </form>
         </div>
     )
- }
- export default EntradasComponent;
+}
+
+export default SalidaComponent
