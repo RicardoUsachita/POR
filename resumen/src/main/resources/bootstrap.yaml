@@ -1,6 +1,6 @@
 spring:
   application:
-    name: entradas_dinero
+    name: resumen
   cloud:
     config:
       enabled: true

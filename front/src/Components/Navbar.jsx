@@ -12,8 +12,8 @@ function Navbar() {
             <h2>Caja <span>Chica</span></h2>
             <div className={`links ${clicked ? 'active' : ''}`}>
                 <a onClick={handleClick} href="/">Home</a>
-                <a onClick={handleClick} href="/entradas">Entradas</a>
-                <a onClick={handleClick} href="/salidas">Salidas</a>
+                <a onClick={handleClick} href="/entrada">Entradas</a>
+                <a onClick={handleClick} href="/salida">Salidas</a>
             </div>
             <div className='burger'>
                 <BotonDesplegable clicked= {clicked} handleClick={handleClick}/>

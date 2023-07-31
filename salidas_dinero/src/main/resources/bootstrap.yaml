@@ -1,6 +1,6 @@
 spring:
   application:
-    name: entradas_dinero
+    name: salidas_dinero
   cloud:
     config:
       enabled: true

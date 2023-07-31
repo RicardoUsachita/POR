@@ -1,4 +1,4 @@
-package por.entradas_dinero.clases;
+package por.salidas_dinero.Clases;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +10,14 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "entrada")
-public class EntradaEnt {
+@Table(name = "salidas")
+public class SalidaEnt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String fecha;
-    private Integer num_recibo;
+    private String tipo_documento;
+    private Integer numero_documento;
+    private String motivo;
     private Integer monto;
 }

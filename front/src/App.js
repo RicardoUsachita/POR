@@ -4,8 +4,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomeComponent from './Components/HomeComponent';
 import EntradasComponent from './Components/EntradasComponent';
 import SalidaComponent from './Components/SalidaComponent';
+import {QueryClient, QueryClientProvider} from 'react-query';
+
 function App() {
+  const queryClient = new QueryClient();
   return (
+    <QueryClientProvider client={queryClient}>
     <div className="App">
       <BrowserRouter>
         <Routes>
@@ -15,6 +19,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    </QueryClientProvider>
   );
 }
 

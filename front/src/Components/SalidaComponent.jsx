@@ -7,7 +7,7 @@ function SalidaComponent() {
 
     const onSubmit = (data) => {
         console.log(data);
-        fetch('http://localhost:8080/salida', {
+        fetch('http://localhost:8080/salidas', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data),})

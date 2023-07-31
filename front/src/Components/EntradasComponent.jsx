@@ -5,6 +5,7 @@ const EntradasComponent= () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
+        console.log(data);
         fetch('http://localhost:8080/recibos', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
