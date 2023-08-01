@@ -2,13 +2,12 @@ package por.entradas_dinero.clases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
-@RestController("/entradas")
+@RestController
+@RequestMapping("/entradas")
 public class EntradaCont {
     @Autowired
     private EntradaSer entradaSer;
@@ -20,7 +19,11 @@ public class EntradaCont {
     }
 
     @GetMapping
-    public ResponseEntity<ArrayList<EntradaEnt>> getEntradas() {
-        return ResponseEntity.ok(entradaSer.getEntradas());
+    public ResponseEntity<List<EntradaEnt>> getEntradas() {
+        List<EntradaEnt> entradas = entradaSer.getEntradas();
+        if (entradas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(entradas);
     }
 }

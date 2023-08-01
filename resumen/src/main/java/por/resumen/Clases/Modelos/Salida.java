@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Salida {
+    private Integer id;
     private String fecha;
     private String tipo_documento;
     private Integer numero_documento;

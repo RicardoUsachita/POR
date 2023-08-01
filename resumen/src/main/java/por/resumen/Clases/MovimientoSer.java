@@ -2,6 +2,9 @@ package por.resumen.Clases;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import por.resumen.Clases.Modelos.Entrada;
@@ -11,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class MovimientoSer {
@@ -24,14 +28,16 @@ public class MovimientoSer {
     RestTemplate restTemplate;
 
     Integer saldo = 0;
-    public ArrayList<MovimientoEnt> crearTablaMov(){
+    public List<MovimientoEnt> crearTablaMov(){
 
-        ArrayList<MovimientoEnt> movimientos = new ArrayList<>();
-        ArrayList<Entrada> entradas = getEntradas();
-        ArrayList<Salida> salidas = getSalidas();
+        List<MovimientoEnt> movimientos = new ArrayList<>();
+        List<Entrada> entradas = getEntradas();
+        List<Salida> salidas = getSalidas();
 
         agregarEntradas(entradas, movimientos);
         agregarSalidas(salidas, movimientos);
+
+        System.out.println(movimientos);
 
         movimientos = ordenarPorFecha(movimientos);
 
@@ -43,28 +49,32 @@ public class MovimientoSer {
         return movimientos;
     }
 
-    private ArrayList<Entrada> getEntradas() {
+    private List<Entrada> getEntradas() {
         String url = "http://localhost:8080/entradas";
-        ArrayList<Entrada> entradas = new ArrayList<>();
-        try {
-            entradas = objectMapper.readValue(restTemplate.getForObject(url, String.class), ArrayList.class);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        ResponseEntity<List<Entrada>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Entrada>>() {}
+        );
+        List<Entrada> entradas = response.getBody();
+        System.out.println(entradas);
         return entradas;
     }
 
-    private ArrayList<Salida> getSalidas() {
+    private List<Salida> getSalidas() {
         String url = "http://localhost:8080/salidas";
-        ArrayList<Salida> salidas = new ArrayList<>();
-        try {
-            salidas = objectMapper.readValue(restTemplate.getForObject(url, String.class), ArrayList.class);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        ResponseEntity<List<Salida>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Salida>>() {}
+        );
+        List<Salida> salidas = response.getBody();
+        System.out.println(salidas);
         return salidas;
     }
-    private void agregarEntradas(ArrayList<Entrada> entradas, ArrayList<MovimientoEnt> movimientos){
+    private void agregarEntradas(List<Entrada> entradas, List<MovimientoEnt> movimientos){
         for (Entrada entrada : entradas) {
             MovimientoEnt movimiento = new MovimientoEnt();
             movimiento.setFecha(entrada.getFecha());
@@ -77,9 +87,10 @@ public class MovimientoSer {
         }
     }
 
-    private void agregarSalidas(ArrayList<Salida> salidas, ArrayList<MovimientoEnt> movimientos){
+    private void agregarSalidas(List<Salida> salidas, List<MovimientoEnt> movimientos){
         for (Salida salida : salidas) {
             MovimientoEnt movimiento = new MovimientoEnt();
+            movimiento.setFecha(salida.getFecha());
             movimiento.setTipo_documento(salida.getTipo_documento());
             movimiento.setNumero_documento(salida.getNumero_documento());
             movimiento.setMotivo(salida.getMotivo());
@@ -89,7 +100,7 @@ public class MovimientoSer {
         }
     }
 
-    private ArrayList<MovimientoEnt> ordenarPorFecha(ArrayList<MovimientoEnt> movimientos) {
+    private List<MovimientoEnt> ordenarPorFecha(List<MovimientoEnt> movimientos) {
         Comparator<MovimientoEnt> comparador = new Comparator<MovimientoEnt>() {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             @Override

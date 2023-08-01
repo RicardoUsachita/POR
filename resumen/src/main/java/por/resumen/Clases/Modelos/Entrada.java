@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Entrada {
+    private Integer id;
     private String fecha;
     private Integer num_recibo;
     private Integer monto;
