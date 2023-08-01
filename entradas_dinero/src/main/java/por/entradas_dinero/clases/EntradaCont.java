@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
-@RestController("/recibos")
+@RestController("/entradas")
 public class EntradaCont {
     @Autowired
     private EntradaSer entradaSer;
