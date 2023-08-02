@@ -2,10 +2,7 @@ package por.salidas_dinero.Clases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -16,7 +13,7 @@ public class SalidaCont {
     private SalidaSer salidaSer;
 
     @PostMapping
-    public ResponseEntity<Boolean> saveSalida(SalidaEnt salida) {
+    public ResponseEntity<Boolean> saveSalida(@RequestBody SalidaEnt salida) {
         salidaSer.saveSalida(salida);
         return ResponseEntity.ok(true);
     }

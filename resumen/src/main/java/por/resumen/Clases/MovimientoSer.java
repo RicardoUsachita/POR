@@ -29,6 +29,7 @@ public class MovimientoSer {
 
     Integer saldo = 0;
     public List<MovimientoEnt> crearTablaMov(){
+        deleteMovimientos();
 
         List<MovimientoEnt> movimientos = new ArrayList<>();
         List<Entrada> entradas = getEntradas();
@@ -46,6 +47,7 @@ public class MovimientoSer {
             movimiento.setSaldo(saldo);
             movimientoRep.save(movimiento);
         }
+        saldo = 0;
         return movimientos;
     }
 
@@ -113,5 +115,9 @@ public class MovimientoSer {
 
         movimientos.sort(comparador);
         return movimientos;
+    }
+
+    private void deleteMovimientos() {
+        movimientoRep.deleteAll();
     }
 }

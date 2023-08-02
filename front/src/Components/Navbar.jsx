@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import BotonDesplegable from './BotonDesplegable'
+
 function Navbar() {
     const [clicked, setClicked] = useState(false);
     const handleClick = () => {
@@ -14,6 +15,7 @@ function Navbar() {
                 <a onClick={handleClick} href="/">Home</a>
                 <a onClick={handleClick} href="/entrada">Entradas</a>
                 <a onClick={handleClick} href="/salida">Salidas</a>
+                <a onClick={handleClick} href="/reporte">Reporte</a>
             </div>
             <div className='burger'>
                 <BotonDesplegable clicked= {clicked} handleClick={handleClick}/>

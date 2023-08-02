@@ -13,7 +13,7 @@ public class EntradaCont {
     private EntradaSer entradaSer;
 
     @PostMapping
-    public ResponseEntity<Boolean> agregarEntrada(EntradaEnt entrada) {
+    public ResponseEntity<Boolean> agregarEntrada(@RequestBody EntradaEnt entrada) {
         entradaSer.agregarEntrada(entrada);
         return ResponseEntity.ok(true);
     }
